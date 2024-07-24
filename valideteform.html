@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Validation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        body {
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+
+        .error {
+            color: red;
+            font-size: small;
+            display: inline-block;
+        }
+
+        h2 {
+            text-align: center;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        .form {
+            margin: auto;
+            width: 80%;
+            max-width: 350px;
+            border: 2px solid #3498db;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        .form label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        .form input[type="text"],
+        .form input[type="number"],
+        .form input[type="email"] {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        .form input[type="submit"] {
+            width: 100%;
+            padding: 12px;
+            margin-top: 10px;
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        .form input[type="submit"]:hover {
+            background-color: #2980b9;
+        }
+
+        @media only screen and (max-width: 700px) {
+            .form {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="main">
+        <div class="form">
+            <h2>Form</h2>
+            <form id="sampleForm" onsubmit="return validateForm()">
+                <label for="firstName"><i class="fa fa-user"></i> First Name</label>
+                <input type="text" id="firstName" name="firstName" placeholder="First Name">
+                <span id="firstNameError" class="error"></span><br><br>
+
+                <label for="lastName"><i class="fa fa-user"></i> Last Name</label>
+                <input type="text" id="lastName" name="lastName" placeholder="Last Name">
+                <span id="lastNameError" class="error"></span><br><br>
+
+                <label for="PhoneNumber"><i class="fas fa-phone"></i> Phone Number</label>
+                <input type="text" id="PhoneNumber" name="PhoneNumber" placeholder="Phone Number">
+                <span id="phonenumberError" class="error"></span><br><br>
+
+                <label for="email"><i class="fa fa-envelope"></i> Email</label>
+                <input type="email" id="email" name="email" placeholder="Email">
+                <span id="emailError" class="error"></span><br><br>
+
+                <input type="submit" value="Submit">
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function validateForm() {
+            let isValid = true;
+
+            // Clear previous errors
+            document.getElementById("firstNameError").innerText = "";
+            document.getElementById("lastNameError").innerText = "";
+            document.getElementById("phonenumberError").innerText = "";
+            document.getElementById("emailError").innerText = "";
+
+            // First Name validation
+            const firstName = document.getElementById("firstName").value;
+            if (!firstName) {
+                document.getElementById("firstNameError").innerText = "First Name is required.";
+                isValid = false;
+            }
+
+            // Last Name validation
+            const lastName = document.getElementById("lastName").value;
+            if (!lastName) {
+                document.getElementById("lastNameError").innerText = "Last Name is required.";
+                isValid = false;
+            }
+
+            // Phone Number validation
+            const phoneNumber = document.getElementById("PhoneNumber").value;
+            if (!phoneNumber) {
+                document.getElementById("phonenumberError").innerText = "Phone Number is required.";
+                isValid = false;
+            } else if (isNaN(phoneNumber) || phoneNumber.length !== 10) {
+                document.getElementById("phonenumberError").innerText = "Enter a valid 10-digit phone number.";
+                isValid = false;
+            }
+
+            // Email validation
+            const email = document.getElementById("email").value;
+            if (!email) {
+                document.getElementById("emailError").innerText = "Email is required.";
+                isValid = false;
+            } else if (!email.includes('@') || email.split('@').length !== 2) {
+                document.getElementById("emailError").innerText = "Enter a valid email address.";
+                isValid = false;
+            }
+
+            return isValid;
+        }
+    </script>
+</body>
+</html>
